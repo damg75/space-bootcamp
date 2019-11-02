@@ -1,3 +1,5 @@
+# Manejo el input del usuario. No es necesario entender por ahora que es lo que está pasando aquí ;)
+
 module Utils
   # Check if Win32API is accessible or not
   @use_stty = begin
