@@ -18,30 +18,19 @@ class Game
     @tablero = Tablero.new
     @array1x1 = []
     @score = 0
+    @tiempo = 0
   end
 
   def update
     @tablero.init_ship(@ship)
     loop do
       @frames += 1 # Cantidad de frame desde que el juego comenzó (puede ser útil... o ¡no!)
+      @tiempo = @frames / @fps
       draw
       handle_input # manejo de la la entrada del jugador
-        if @frames % 3 == 0 then
-          @array1x1 << Meteorite1x1.new(@frames,@tablero)
-          @array1x1.each do
-            |x|
-            x.advance(@tablero,@frames,@array1x1)
-          end
-        end  
-        # colition_validator(@tablero.tablero,@ship.shape)
-        if @tablero.tablero[19].find_index {|x| x == @ship.shape} == nil then
-          game_over
-        end
-        #sumar el score
-        @score = @score + @tablero.tablero[20].count {|x| x == ' O ' } 
-
-
-
+      asteroid1x1
+      colition_validator
+      score_sum
       sleep 1.0 / @fps # tiempo de refrescamiento, frecuencia 10 Hz
       break if @frames == @fps * 60 
     end
@@ -72,15 +61,10 @@ class Game
     end
   end
 
-  # def colition_validator(@tablero.tablero,@ship.shape)
-  #   if @tablero.tablero[19].find_index {|x| x == @ship.shape} == nil then
-  #     game_over
-  #   end
-  # end
-
   def game_over
     system 'clear'
     puts "¡Has perdido!"
+    puts "Tiempo: #{@tiempo} s"
     puts "Score: #{@score}"
     puts
     puts "Has logrado eyectarte a ultimo segundo.... La tripulacion de SpaceHack puso todas sus esperanzas en tus habilidades como piloto"
@@ -96,9 +80,11 @@ class Game
   def game_win
     system("clear")
     puts '¡Has ganado!'
+    puts "Tiempo: #{@tiempo} s"
     puts "Score: #{@score}"
     puts
-    puts "Has logrado sortear con gran habilidad la lluvia de meteoritos.... La tripulacion de SpaceHack hizo bien en poner todas sus esperanzas"
+    puts "Has logrado sortear con gran habilidad el cinturon de asteroides y pudo llegar la nave a Gliese 581g...."
+    puts "La tripulacion de SpaceHack hizo bien en poner todas sus esperanzas"
     puts "en ti como piloto, todos celebran, recibes una medalla por parte de los mentores a cargo de SpaceHack, mientras suena una cancion epica" 
     puts
     puts "Juca, esta mas tranquilo, ya sabes algo de programacion estructurada"
@@ -113,7 +99,8 @@ class Game
 
   def draw
     system 'clear'
-    puts "Frames: #{@frames}"
+    # puts "Frames: #{@frames}"
+    puts "Tiempo: #{@tiempo} s"
     puts "Score: #{@score}"
     puts 
     puts 
@@ -126,8 +113,75 @@ class Game
 
   # Propuesta de menú
   def show_menu
-    puts '                                  ##################################'
-    puts '                                  d: derecha, a: izquierda, x: salir'
-    puts '                                  ##################################'
+    puts '        ##################################'
+    puts '        d: derecha, a: izquierda, x: salir'
+    puts '        ##################################'
+  end
+
+  def asteroid1x1
+    if @frames < (@fps * 60) / 6
+      if @frames % 10 == 0 then
+        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1.each do
+          |x|
+          x.advance(@tablero,@frames,@array1x1)
+        end
+      end 
+    end
+    if @frames < (@fps * 60) / 3  && @frames >= (@fps * 60) / 6
+      if @frames % 5 == 0 then
+        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1.each do
+          |x|
+          x.advance(@tablero,@frames,@array1x1)
+        end
+      end 
+    end
+    if @frames < (@fps * 60) / 2 && @frames >= (@fps * 60) / 3
+      if @frames % 4 == 0 then
+        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1.each do
+          |x|
+          x.advance(@tablero,@frames,@array1x1)
+        end
+      end 
+    end
+    if @frames < (@fps * 60) / 2 + (@fps * 60) / 6 && @frames >= (@fps * 60) / 2
+      if @frames % 3 == 0 then
+        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1.each do
+          |x|
+          x.advance(@tablero,@frames,@array1x1)
+        end
+      end 
+    end
+    if @frames < (@fps * 60) / 2 + (@fps * 60) / 3 && @frames >= (@fps * 60) / 2 + (@fps * 60) / 6
+      if @frames % 2 == 0 then
+        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1.each do
+          |x|
+          x.advance(@tablero,@frames,@array1x1)
+        end
+      end 
+    end
+    if @frames < @fps * 60 && @frames >= (@fps * 60) / 2 + (@fps * 60) / 3
+      if @frames % 2 == 0 then
+        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1.each do
+          |x|
+          x.advance(@tablero,@frames,@array1x1)
+        end
+      end 
+    end
+  end
+
+  def colition_validator
+    if @tablero.tablero[19].find_index {|x| x == @ship.shape} == nil then
+      game_over
+    end
+  end
+
+  def score_sum
+    @score = @score + @tablero.tablero[20].count {|x| x == ' O ' }
   end
 end

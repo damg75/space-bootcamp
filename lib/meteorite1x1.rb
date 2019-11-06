@@ -7,8 +7,15 @@ class Meteorite1x1
     def initialize(frames,tablero)
         @shape = ' O '
         @foto = frames
+        # if frames < 600
+        #     @column = rand(15)
+        # end
+        # if frames > 600
+        #     @column = rand(10)
+        # end
         @column = rand(15)
         @row = 0
+        
         # tablero.tablero[@row][@column] = @shape
     end
 

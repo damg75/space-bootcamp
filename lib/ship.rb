@@ -25,7 +25,7 @@ class Ship
             @position_ship = 0
             tablero.tablero[19][@position_ship] = @shape
         else
-            @position_ship = @position_ship -1
+            @position_ship = @position_ship - 1
             tablero.tablero[19][@position_ship] = @shape
         end
     end
