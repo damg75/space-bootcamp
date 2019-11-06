@@ -29,4 +29,17 @@ class Ship
             tablero.tablero[19][@position_ship] = @shape
         end
     end
+
+    # def bomb(tablero,array)
+    #     # for i in 0..20 do
+    #     #     for j in 0..14 do
+    #     #         if tablero.tablero[i][j] != ' A ' then
+    #     #             tablero.tablero[i][j] = '   '
+    #     #         end
+    #     #         puts 'bomba!!!!'
+    #     #     end
+    #     # end
+    #     array=Array.new()
+
+    # end
 end

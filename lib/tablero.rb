@@ -3,23 +3,32 @@ require_relative 'ship'
 class Tablero
     def initialize
         @tablero = []
-        for i in 0..19 do
+        for i in 0..20 do
         @tablero[i] = []
             for j in 0..14 do
             @tablero[i][j] = '   '
             end
         end
+        
     end
    
     def p_t
      puts 
      puts 
-    @tablero.each do
-        |x|
-        print x
-        puts " "
+    # @tablero.each do
+    #     |x|
+    #     print x
+    #     puts " "
+    #     end
+    # end
+
+    for i in 0..20 do
+        for j in 0..14 do
+            print @tablero[i][j]
         end
+     puts
     end
+end
 
     def init_ship(ship)
         @tablero[19][ship.position_ship] = ship.shape
@@ -28,30 +37,10 @@ class Tablero
         @tablero
     end
 
-    # def asteroide1x1(frames,fps)
-
-    #     if frames % 20 == 0 then
-    #         asteroid_column = rand(14)
-    #         @tablero[0][asteroid_column] = ' 0 '
-    #         i = 1
-    #         foto = frames
-    #         met = true
-    #     end
+    # def meteorizador1x1(meteorito)
+    #     array1x1 << meteorito
+    #     array1x1.each do {|x| @tablero[] }
         
-
-    #     if foto < frames then
-    #         @tablero[i-1][asteroid_column] = '   '
-    #         @tablero[i][asteroid_column] = ' 0 '
-    #         i += 1
-    #         if i == 19 then
-    #             i = 0
-    #             met = 0
-    #         end
-                
-    #     end
-
-
-    # end
 
 end
 
