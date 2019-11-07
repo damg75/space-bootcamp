@@ -85,9 +85,62 @@ class Game
 
   def game_win
     system("clear")
+    puts '          ███████╗██████╗  █████╗  ██████╗███████╗██╗  ██╗ █████╗  ██████╗██╗  ██╗
+          ██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██║  ██║██╔══██╗██╔════╝██║ ██╔╝
+          ███████╗██████╔╝███████║██║     █████╗  ███████║███████║██║     █████╔╝ 
+          ╚════██║██╔═══╝ ██╔══██║██║     ██╔══╝  ██╔══██║██╔══██║██║     ██╔═██╗ 
+          ███████║██║     ██║  ██║╚██████╗███████╗██║  ██║██║  ██║╚██████╗██║  ██╗
+          ╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝'.colorize(:yellow)
+    puts
     puts '¡Has ganado!'.colorize(:yellow)
     puts "Tiempo: #{@tiempo} s".colorize(:yellow)
     puts "Score: #{@score}".colorize(:yellow)
+    puts
+    puts
+    puts
+    puts '                .                                            .'
+    puts '    *   .                  .              .        .   *          .'.colorize(:red)
+    sleep(0.1)
+    puts ' .         .                     .       .           .      .        .'
+    sleep(0.1)
+    puts '       o                             .                   .'.colorize(:blue)
+    sleep(0.1)
+    puts '                 .          .                 ,                ,    ,'.colorize(:red)
+    sleep(0.1)
+    puts ' .          \          .                         .'.colorize(:blue)
+    sleep(0.1)
+    puts '      .      \   ,'.colorize(:green)
+    sleep(0.1)
+    puts '   .          o     .                 .                   .            .'.colorize(:red)
+    sleep(0.1)
+    puts '     .         \                 ,             .                .'.colorize(:red)
+    sleep(0.1)
+    puts '              #\##\#      .                              .        .'.colorize(:light_blue)
+    sleep(0.1)
+    puts '            #  #O##\###                .                        .'.colorize(:light_blue)
+    sleep(0.1)
+    puts '  .        #*#  #\##\###                       .                     ,'.colorize(:light_blue)
+    sleep(0.1)
+    puts '       .   ##*#  #\##\##               .                     .'.colorize(:light_blue)
+    sleep(0.1)
+    puts '     .      ##*#  #o##\#         .                             ,       .' .colorize(:light_blue)
+    sleep(0.1)
+    puts '         .     *#  #\#     .                    .             .          ,'.colorize(:light_blue)
+    sleep(0.1)
+    puts '                     \          .                         . '.colorize(:blue)
+    sleep(0.1)
+    puts '...^/\...^--..._/\..._O............__/\/\---/\............---............::'
+    sleep(0.1)
+    puts '   /\^   ^  ^    ^             ^     ^^ ^  \ ^          ^       ---'.colorize(:color => :white, :background => :red)
+    sleep(0.1)
+    puts '        --           -         X   --  -      -         ---  __       ^'.colorize(:color => :white, :background => :red)
+    sleep(0.1)
+    puts '  --  ^^                      /X\--  ^  ^                         --  __'.colorize(:color => :white, :background => :red)
+    sleep(1)
+    puts '                                                 >  A  <                     '.colorize(:color => :yellow, :background => :red)
+    sleep(0.1)
+    puts '...................................................^........................'.colorize(:color => :white, :background => :red)
+    puts
     puts
     puts "Has logrado sortear con gran habilidad el cinturon de asteroides y la nave pudo llegar a Gliese 581g....".colorize(:yellow)
     sleep(5)
@@ -222,8 +275,8 @@ class Game
       puts '|/**\|  '.colorize(:yellow)
       sleep(1)
       puts
-      puts 'Boooooooommmmmmm!!!!!!'.colorize(:color => :yellow, :background => :red)
-      puts 'Has lanzado una bomba espacial BX-2603, todo a tu alrededor queda destruido...'.colorize(:color => :yellow, :background => :red)
+      puts 'Boooooooommmmmmm!!!!!!'.colorize(:yellow)
+      puts 'Has lanzado una bomba espacial BX-2603, todo a tu alrededor queda destruido...'.colorize(:yellow)
       puts
                 puts '                               ________________
                 ____/ (  (    )   )  \___
