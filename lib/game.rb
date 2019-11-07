@@ -4,6 +4,9 @@ require_relative 'utils'
 require_relative 'ship'
 require_relative 'tablero'
 require_relative 'meteorite1x1'
+require_relative './meteorite1x1diag'
+require_relative 'meteorite2x2'
+require_relative 'meteorite3x3'
 require 'colorize'
 
 class Game
@@ -18,6 +21,9 @@ class Game
     @ship = Ship.new
     @tablero = Tablero.new
     @array1x1 = []
+    @array1x1diag = []
+    @array2x2 = []
+    @array3x3 = []
     @score = 0
     @tiempo = 0
   end
@@ -30,6 +36,9 @@ class Game
       draw
       handle_input # manejo de la la entrada del jugador
       asteroid1x1
+      asteroid1x1diag
+      asteroid2x2
+      asteroid3x3
       colition_validator
       score_sum
       sleep 1.0 / @fps # tiempo de refrescamiento, frecuencia 10 Hz
@@ -57,7 +66,7 @@ class Game
   end
 
   def game_over
-    system 'clear'
+    # system 'clear'
     puts "¡Has perdido!".colorize(:yellow)
     puts "Tiempo: #{@tiempo} s".colorize(:yellow)
     puts "Score: #{@score}".colorize(:yellow)
@@ -189,12 +198,17 @@ class Game
 
   def colition_validator
     if @tablero.tablero[19].find_index {|x| x == @ship.shape} == nil then
+      draw
       game_over
     end
   end
 
   def score_sum
     @score = @score + @tablero.tablero[20].count {|x| x == ' O ' }
+    @score = @score + (@tablero.tablero[20].count {|x| x == ' X ' })
+    @score = @score + (@tablero.tablero[20].count {|x| x == ' Y ' })
+    @score = @score + (@tablero.tablero[20].count {|x| x == ' U ' })
+    @score = @score + (@tablero.tablero[20].count {|x| x == ' V ' })
   end
 
   def drop_bomb
@@ -206,6 +220,7 @@ class Game
       puts ' |  |   '.colorize(:yellow)
       puts '/ == \  '.colorize(:yellow)
       puts '|/**\|  '.colorize(:yellow)
+      sleep(1)
       puts
       puts 'Boooooooommmmmmm!!!!!!'.colorize(:color => :yellow, :background => :red)
       puts 'Has lanzado una bomba espacial BX-2603, todo a tu alrededor queda destruido...'.colorize(:color => :yellow, :background => :red)
@@ -227,7 +242,10 @@ class Game
               (/ / //  /|//||||\\  \ \  \ _)
           ------------------------------------------'.colorize(:color => :yellow, :background => :red)
       sleep(1)
-      @array1x1=Array.new
+      @array1x1 = Array.new
+      @array1x1diag = Array.new
+      @array2x2 = Array.new
+      @array3x3 = Array.new
       @tablero = Tablero.new
       @tablero.init_ship(@ship)
   end  
@@ -240,6 +258,41 @@ class Game
     @ship.move_left(@tablero)
   end
 
+  def asteroid1x1diag
+    if @frames % 50 == 0 then
+      @array1x1diag << Meteorite1x1diag.new(@frames,@tablero)
+    end  
+    if @frames % 10 == 0 then
+      @array1x1diag.each do
+        |x|
+        x.advancediag(@tablero,@frames,@array1x1diag)
+      end
+    end 
+  end
+
+  def asteroid2x2
+    if @frames % 100 == 0 then
+      @array2x2 << Meteorite2x2.new(@frames,@tablero)
+    end  
+    if @frames % 10 == 0 then
+      @array2x2.each do
+        |x|
+        x.advance2x2(@tablero,@frames,@array2x2)
+      end
+    end 
+  end
+  
+  def asteroid3x3
+    if @frames % 200 == 0 then
+      @array3x3 << Meteorite3x3.new(@frames,@tablero)
+    end  
+    if @frames % 10 == 0 then
+      @array3x3.each do
+        |x|
+        x.advance3x3(@tablero,@frames,@array3x3)
+      end
+    end 
+  end
 
 
 end
