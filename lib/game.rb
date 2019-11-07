@@ -4,6 +4,7 @@ require_relative 'utils'
 require_relative 'ship'
 require_relative 'tablero'
 require_relative 'meteorite1x1'
+require 'colorize'
 
 class Game
   def self.start
@@ -43,17 +44,11 @@ class Game
     key = Utils.get_key&.chr # Se captura la entrada de jugador
     case key
     when 'a'
-      @ship.move_left(@tablero)
+      ship_move_left
     when 'd'
-      @ship.move_right(@tablero)
+      ship_move_right
     when 'b'
-      puts 'Boooooooommmmmmm!!!!!!'
-      puts 'Has lanzado una bomba espacial BX-2603, todo a tu alrededor queda destruido...'
-      sleep(1)
-      @array1x1=Array.new
-      @tablero = Tablero.new
-      @ship = Ship.new
-      @tablero.init_ship(@ship)
+      drop_bomb
     when 'x'
       game_over
     when  'p'
@@ -63,12 +58,14 @@ class Game
 
   def game_over
     system 'clear'
-    puts "¡Has perdido!"
-    puts "Tiempo: #{@tiempo} s"
-    puts "Score: #{@score}"
+    puts "¡Has perdido!".colorize(:yellow)
+    puts "Tiempo: #{@tiempo} s".colorize(:yellow)
+    puts "Score: #{@score}".colorize(:yellow)
     puts
-    puts "Has logrado eyectarte a ultimo segundo.... La tripulacion de SpaceHack puso todas sus esperanzas en tus habilidades como piloto"
-    puts " y los has estrellado contra un meteorito... por lo menos estas vivo y algo sabes programar... espero puedas dormir tranquilo.... o no"
+    puts "Has logrado eyectarte al ultimo segundo.... La tripulacion de SpaceHack puso todas sus esperanzas en tus habilidades como piloto....".colorize(:yellow)
+    sleep(3)
+    puts
+    puts " y los has estrellado contra un meteorito... por lo menos estas vivo y algo sabes programar... espero puedas dormir tranquilo.... o no".colorize(:yellow)
     puts
     puts
     puts
@@ -79,16 +76,19 @@ class Game
 
   def game_win
     system("clear")
-    puts '¡Has ganado!'
-    puts "Tiempo: #{@tiempo} s"
-    puts "Score: #{@score}"
+    puts '¡Has ganado!'.colorize(:yellow)
+    puts "Tiempo: #{@tiempo} s".colorize(:yellow)
+    puts "Score: #{@score}".colorize(:yellow)
     puts
-    puts "Has logrado sortear con gran habilidad el cinturon de asteroides y pudo llegar la nave a Gliese 581g...."
-    puts "La tripulacion de SpaceHack hizo bien en poner todas sus esperanzas"
-    puts "en ti como piloto, todos celebran, recibes una medalla por parte de los mentores a cargo de SpaceHack, mientras suena una cancion epica" 
+    puts "Has logrado sortear con gran habilidad el cinturon de asteroides y la nave pudo llegar a Gliese 581g....".colorize(:yellow)
+    sleep(5)
     puts
-    puts "Juca, esta mas tranquilo, ya sabes algo de programacion estructurada"
-    puts "mientras... Carlos, el Profe, Anderson y Roberto miran sonrientes, al parecer ya sabes programar... o no"
+    puts "La tripulacion de SpaceHack hizo bien en poner todas sus esperanzas".colorize(:yellow)
+    puts "en ti como piloto, todos celebran, recibes una medalla por parte de los mentores a cargo de SpaceHack, mientras suena una cancion epica".colorize(:yellow) 
+    sleep(5)
+    puts
+    puts "Juca, esta mas tranquilo, ya sabes algo de programacion estructurada".colorize(:yellow)
+    puts "mientras... Carlos, el Profe, Anderson y Roberto miran sonrientes, al parecer ya sabes programar... o no".colorize(:yellow)
     puts
     puts
     puts
@@ -99,12 +99,22 @@ class Game
 
   def draw
     system 'clear'
-    # puts "Frames: #{@frames}"
-    puts "Tiempo: #{@tiempo} s"
-    puts "Score: #{@score}"
+    puts
+    puts '          ███████╗██████╗  █████╗  ██████╗███████╗██╗  ██╗ █████╗  ██████╗██╗  ██╗
+          ██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██║  ██║██╔══██╗██╔════╝██║ ██╔╝
+          ███████╗██████╔╝███████║██║     █████╗  ███████║███████║██║     █████╔╝ 
+          ╚════██║██╔═══╝ ██╔══██║██║     ██╔══╝  ██╔══██║██╔══██║██║     ██╔═██╗ 
+          ███████║██║     ██║  ██║╚██████╗███████╗██║  ██║██║  ██║╚██████╗██║  ██╗
+          ╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝'.colorize(:yellow)
+    
+    puts
+    puts "Tiempo: #{@tiempo} s".colorize(:yellow)
+    puts "Score: #{@score}".colorize(:yellow)
     puts 
-    puts 
-    @tablero.p_t
+    puts
+    puts "                     **--*--*--*--*--*--*--*---*--*--*--*--*--*--*--**".colorize(:blue) 
+    @tablero.p_t(@ship)
+    puts "                     **--*--*--*--*--*--*--*---*--*--*--*--*--*--*--**".colorize(:blue)
     puts 
     puts 
     show_menu
@@ -113,9 +123,11 @@ class Game
 
   # Propuesta de menú
   def show_menu
-    puts '        ##################################'
-    puts '        d: derecha, a: izquierda, x: salir'
-    puts '        ##################################'
+    puts '                             =================================='.colorize(:yellow)
+    puts '                             d: derecha, a: izquierda, x: salir'.colorize(:yellow)
+    puts '                             =================================='.colorize(:yellow)
+    puts '                                           b: bomba            '.colorize(:yellow)
+    puts '                             =================================='.colorize(:yellow)
   end
 
   def asteroid1x1
@@ -184,4 +196,50 @@ class Game
   def score_sum
     @score = @score + @tablero.tablero[20].count {|x| x == ' O ' }
   end
+
+  def drop_bomb
+    system("clear")
+    puts
+      puts '  /\    '.colorize(:yellow)
+      puts ' /  \   '.colorize(:yellow)
+      puts ' |  |   '.colorize(:yellow)
+      puts ' |  |   '.colorize(:yellow)
+      puts '/ == \  '.colorize(:yellow)
+      puts '|/**\|  '.colorize(:yellow)
+      puts
+      puts 'Boooooooommmmmmm!!!!!!'.colorize(:color => :yellow, :background => :red)
+      puts 'Has lanzado una bomba espacial BX-2603, todo a tu alrededor queda destruido...'.colorize(:color => :yellow, :background => :red)
+      puts
+                puts '                               ________________
+                ____/ (  (    )   )  \___
+              /( (  (  )   _    ))  )   )\
+            ((     (   )(    )  )   (   )  )
+          ((/  ( _(   )   (   _) ) (  () )  )
+          ( (  ( (_)   ((    (   )  .((_ ) .  )_
+          ( (  )    (      (  )    )   ) . ) (   )
+          (  (   (  (   ) (  _  ( _) ).  ) . ) ) ( )
+          (_((__(_(__(( ( ( |  ) ) ) )_))__))_)___)
+          ((__)        \\||lll|l||///          \_))
+                  (   /(/ (  )  ) )\   )
+                (    ( ( ( | | ) ) )\   )
+              (        |(||(||)||||        )
+                (     //|/l|||)|\\ \     )
+              (/ / //  /|//||||\\  \ \  \ _)
+          ------------------------------------------'.colorize(:color => :yellow, :background => :red)
+      sleep(1)
+      @array1x1=Array.new
+      @tablero = Tablero.new
+      @tablero.init_ship(@ship)
+  end  
+
+  def ship_move_right
+    @ship.move_right(@tablero)
+  end
+
+  def ship_move_left
+    @ship.move_left(@tablero)
+  end
+
+
+
 end

@@ -12,9 +12,7 @@ class Tablero
         
     end
    
-    def p_t
-     puts 
-     puts 
+    def p_t(ship)
     # @tablero.each do
     #     |x|
     #     print x
@@ -23,10 +21,15 @@ class Tablero
     # end
 
     for i in 0..20 do
+        print "                     []".colorize(:blue)
         for j in 0..14 do
-            print @tablero[i][j]
+            if @tablero[i][j] == ship.shape then
+                print "#{@tablero[i][j].colorize(:yellow)}"
+            else
+                print "#{@tablero[i][j].colorize(:light_blue)}"
+            end
         end
-     puts
+        puts "[]".colorize(:blue)
     end
 end
 
