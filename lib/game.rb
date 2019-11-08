@@ -26,10 +26,11 @@ class Game
     @array3x3 = []
     @score = 0
     @tiempo = 0
+    @tablero.init_ship(@ship)
   end
 
   def update
-    @tablero.init_ship(@ship)
+    # @tablero.init_ship(@ship)
     loop do
       @frames += 1 # Cantidad de frame desde que el juego comenzó (puede ser útil... o ¡no!)
       @tiempo = @frames / @fps
@@ -41,7 +42,7 @@ class Game
       asteroid3x3
       colition_validator
       score_sum
-      sleep 1.0 / @fps # tiempo de refrescamiento, frecuencia 10 Hz
+      sleep 1.0 / @fps # tiempo de refrescamiento, frecuencia 20 Hz
       break if @frames == @fps * 60 
     end
     if @frames == @fps * 60
@@ -60,13 +61,12 @@ class Game
       drop_bomb
     when 'x'
       game_over
-    when  'p'
+    when 'p'
       game_win
     end
   end
 
   def game_over
-    # system 'clear'
     puts "¡Has perdido!".colorize(:yellow)
     puts "Tiempo: #{@tiempo} s".colorize(:yellow)
     puts "Score: #{@score}".colorize(:yellow)
@@ -136,7 +136,7 @@ class Game
     puts '        --           -         X   --  -      -         ---  __       ^'.colorize(:color => :white, :background => :red)
     sleep(0.1)
     puts '  --  ^^                      /X\--  ^  ^                         --  __'.colorize(:color => :white, :background => :red)
-    sleep(1)
+    sleep(0.1)
     puts '                                                 >  A  <                     '.colorize(:color => :yellow, :background => :red)
     sleep(0.1)
     puts '...................................................^........................'.colorize(:color => :white, :background => :red)
@@ -183,7 +183,6 @@ class Game
     puts 
   end
 
-  # Propuesta de menú
   def show_menu
     puts '                             =================================='.colorize(:yellow)
     puts '                             d: derecha, a: izquierda, x: salir'.colorize(:yellow)
@@ -195,55 +194,55 @@ class Game
   def asteroid1x1
     if @frames < (@fps * 60) / 6
       if @frames % 10 == 0 then
-        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1 << Meteorite1x1.new
         @array1x1.each do
           |x|
-          x.advance(@tablero,@frames,@array1x1)
+          x.advance(@tablero)
         end
       end 
     end
     if @frames < (@fps * 60) / 3  && @frames >= (@fps * 60) / 6
       if @frames % 5 == 0 then
-        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1 << Meteorite1x1.new
         @array1x1.each do
           |x|
-          x.advance(@tablero,@frames,@array1x1)
+          x.advance(@tablero)
         end
       end 
     end
     if @frames < (@fps * 60) / 2 && @frames >= (@fps * 60) / 3
       if @frames % 4 == 0 then
-        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1 << Meteorite1x1.new
         @array1x1.each do
           |x|
-          x.advance(@tablero,@frames,@array1x1)
+          x.advance(@tablero)
         end
       end 
     end
     if @frames < (@fps * 60) / 2 + (@fps * 60) / 6 && @frames >= (@fps * 60) / 2
       if @frames % 3 == 0 then
-        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1 << Meteorite1x1.new
         @array1x1.each do
           |x|
-          x.advance(@tablero,@frames,@array1x1)
+          x.advance(@tablero)
         end
       end 
     end
     if @frames < (@fps * 60) / 2 + (@fps * 60) / 3 && @frames >= (@fps * 60) / 2 + (@fps * 60) / 6
       if @frames % 2 == 0 then
-        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1 << Meteorite1x1.new
         @array1x1.each do
           |x|
-          x.advance(@tablero,@frames,@array1x1)
+          x.advance(@tablero)
         end
       end 
     end
     if @frames < @fps * 60 && @frames >= (@fps * 60) / 2 + (@fps * 60) / 3
       if @frames % 2 == 0 then
-        @array1x1 << Meteorite1x1.new(@frames,@tablero)
+        @array1x1 << Meteorite1x1.new
         @array1x1.each do
           |x|
-          x.advance(@tablero,@frames,@array1x1)
+          x.advance(@tablero)
         end
       end 
     end
@@ -313,36 +312,37 @@ class Game
 
   def asteroid1x1diag
     if @frames % 50 == 0 then
-      @array1x1diag << Meteorite1x1diag.new(@frames,@tablero)
+      @array1x1diag << Meteorite1x1diag.new
     end  
     if @frames % 10 == 0 then
       @array1x1diag.each do
         |x|
-        x.advancediag(@tablero,@frames,@array1x1diag)
+        x.advancediag(@tablero)
       end
     end 
   end
 
   def asteroid2x2
     if @frames % 100 == 0 then
-      @array2x2 << Meteorite2x2.new(@frames,@tablero)
+      @array2x2 << Meteorite2x2.new
     end  
     if @frames % 10 == 0 then
       @array2x2.each do
         |x|
-        x.advance2x2(@tablero,@frames,@array2x2)
+        x.advance2x2(@tablero)
       end
     end 
   end
   
   def asteroid3x3
+    
     if @frames % 200 == 0 then
-      @array3x3 << Meteorite3x3.new(@frames,@tablero)
+      @array3x3 << Meteorite3x3.new
     end  
     if @frames % 10 == 0 then
       @array3x3.each do
         |x|
-        x.advance3x3(@tablero,@frames,@array3x3)
+        x.advance3x3(@tablero)
       end
     end 
   end

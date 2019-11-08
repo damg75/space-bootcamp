@@ -1,10 +1,11 @@
-require_relative 'tablero'
+# require_relative 'tablero'
 
 class Meteorite1x1diag
 
-    def initialize(frames,tablero)
-        @foto = frames
+    def initialize
+
         @izq_o_der = rand(2)
+
         if @izq_o_der == 1 then 
             @column = 14
             @row = rand(6..11)
@@ -15,10 +16,13 @@ class Meteorite1x1diag
             @row = @row = rand(6..11)
             @shape = ' Y '
         end 
+
     end
 
-    def advancediag(tablero,frames,array)
+    def advancediag(tablero)
+
         tablero.tablero[@row][@column] = @shape
+
         if @izq_o_der == 1 then
             if @row == 20 then
                 @shape = '   '
@@ -44,7 +48,9 @@ class Meteorite1x1diag
                 tablero.tablero[@row][@column] = @shape
             end
         end
+
     end
+
 end
 
 
