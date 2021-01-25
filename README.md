@@ -1,3 +1,6 @@
 # 1.3.5 Bootcamp espacial
 
-Correr `ruby main.rb`
+git clone
+cd space-bootcamp
+
+On Terminal `ruby main.rb`
