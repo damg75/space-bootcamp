@@ -3,4 +3,4 @@
 git clone
 cd space-bootcamp
 
-On Terminal `ruby main.rb`
+On Terminal Window, `ruby main.rb`
