@@ -5,4 +5,8 @@ A terminal based ruby game, you are a space ship trying to dodge the incoming as
 git clone
 cd space-bootcamp
 
-On Terminal Window, `ruby main.rb`
+On Terminal Window, 
+
+`gem install colorize` 
+
+`ruby main.rb`
