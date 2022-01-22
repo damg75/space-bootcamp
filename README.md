@@ -3,7 +3,7 @@
 A terminal based ruby game, you are a space ship trying to dodge the incoming asteroids
 
 git clone
-cd space-bootcamp
+`cd space-bootcamp`
 
 On Terminal Window, 
 
